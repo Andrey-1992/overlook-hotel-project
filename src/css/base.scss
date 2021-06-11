@@ -4,4 +4,36 @@ $primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,1
 
 body {
   background: $primary-background;
+  margin: 0px;
+}
+
+// Header section
+header {
+  border: 2px solid blue;
+  display: flex;
+  flex-direction: row;
+}
+
+.hotel-info {
+  // border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+
+.user-info {
+  // border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+
+// Search room section
+form {
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

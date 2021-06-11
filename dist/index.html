@@ -4,13 +4,30 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpack Starter Kit</title>
+  <title>Overlook Hotel</title>
 </head>
 <body>
-  <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
-  
+  <!-- <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px"> -->
   <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
+  <header>
+    <section class="hotel-info" id="hotelInfo">
+      <h1>Overlook Hotel</h1>
+      <p>Current Date: 06/12/2021</p>
+    </section>
+    <section class="user-info" id="userInfo">
+      <h3>Welcome Guest!</h3>
+      <p>You have spent $5,000 in rooms !</p>
+    </section>
+  </header>
+  <section class="room-search" id="roomSearch">
+    <form method="post">
+      <label class="search-room" for="searchRoom">Book a room</label>
+      <input type="date" id="searchRoom"/>
+      <input type="submit" value="submit"/>
+    </form>
+  </section>
+  <section class="room-cards" id="roomCards">
+  </section>
   <script src="bundle.js"></script>
-
 </body>
 </html>
