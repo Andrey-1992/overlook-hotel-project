@@ -7,42 +7,65 @@ import './images/turing-logo.png'
 import User from './classes/user.js';
 import Room from './classes/rooms.js';
 import { fetchCalls } from './apiCalls.js';
+import domUpdates from './domUpdates';
+
+// Dom selection
+let userInfo = document.getElementById('userInfo');
+let hotelInfo = document.getElementById('hotelInfo');
+let bookingsView = document.getElementById('bookingsView');
+let searchView = document.getElementById('searchView');
 
 
-let customersData;
-console.log(customersData);
-let bookingsData;
-console.log(bookingsData);
-let roomsData;
-console.log(roomsData);
-let currentUser;
-console.log(currentUser);
+
+
+
+
+
 
 // Event listeners
 window.addEventListener('load', promiseFetchData);
 
 
 
+
+// Gobal Variables
+let customersData;
+let bookingsData;
+let roomsData;
+let currentUser;
+console.log(customersData);
+console.log(bookingsData);
+console.log(roomsData);
+console.log(currentUser);
+
+
 // Functions
 
 function promiseFetchData() {
-  const customers = fetchCalls.callCustomersData()
+  const customers = fetchCalls.callCustomersData();
   const bookings = fetchCalls.callBookingsData();
   const rooms = fetchCalls.callRoomsData();
-  Promise.all([customers, bookings, rooms]).then(data => {
-    assignData(data[0], data[1], data[2]);
+  Promise.all([customers, bookings, rooms])
+  .then(data => {
+    initializedData(data[0], data[1], data[2]);
   })
+  .catch(err => console.error(err))
 };
 
-function assignData(customers, bookings, rooms) {
+function initializedData(customers, bookings, rooms) {
   customersData = customers;
-  console.log(customersData);
   bookingsData = bookings;
-  console.log(bookingsData);
   roomsData = rooms;
+  console.log(customersData);
+  console.log(bookingsData);
   console.log(roomsData);
-  const currentUser = new User(customersData[0]);
+  const currentUser = new User(customersData);
   console.log(currentUser);
+  domUpdates.displayGreetUser(currentUser);
+  let myCurrentDate = new Date()
+  console.log(myCurrentDate);
+  domUpdates.displayCurrentDate(myCurrentDate)
+   // domUpdates.displayTotalSpent(currentUser);
   // createUser(customersData)
 };
 
