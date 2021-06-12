@@ -7,6 +7,9 @@ import bookingsData from '../src/test-data/bookingsData.js'
 import roomsData from '../src/test-data/roomsData.js'
 
 describe('User', () => {
+
+  let currentUser;
+
   beforeEach(() => {
     currentUser = new User(bookingsData[0]);
   });
