@@ -3,6 +3,7 @@ class User {
     this.id = clientData.id;
     this.name = clientData.name;
     this.pastBookings = [];
+    this.presentBookings = [];
     this.upcomingBookings = [];
     this.hotelTotalSpent = 0;
   };

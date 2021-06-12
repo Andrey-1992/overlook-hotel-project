@@ -1,6 +1,5 @@
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
-
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 
@@ -14,6 +13,9 @@ let userInfo = document.getElementById('userInfo');
 let hotelInfo = document.getElementById('hotelInfo');
 let bookingsView = document.getElementById('bookingsView');
 let searchView = document.getElementById('searchView');
+let pastBookingsView = document.getElementById('pastBookings');
+let presentBookingsView = document.getElementById('presentBookings');
+let futureBookingsView = document.getElementById('futureBookings');
 
 
 
@@ -24,6 +26,8 @@ let searchView = document.getElementById('searchView');
 
 // Event listeners
 window.addEventListener('load', promiseFetchData);
+
+
 
 
 
@@ -65,7 +69,10 @@ function initializedData(customers, bookings, rooms) {
   let myCurrentDate = new Date()
   console.log(myCurrentDate);
   domUpdates.displayCurrentDate(myCurrentDate)
-   // domUpdates.displayTotalSpent(currentUser);
+  domUpdates.displayPastBookings(currentUser, pastBookingsView)
+  domUpdates.displayPresentBookings(currentUser, presentBookingsView)
+  domUpdates.displayFutureBookings(currentUser, futureBookingsView)
+  // domUpdates.displayTotalSpent(currentUser);
   // createUser(customersData)
 };
 
