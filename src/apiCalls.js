@@ -1,4 +1,4 @@
-export const fetchCall = {
+export const fetchCalls = {
 
   callCustomersData() {
     return fetch('http://localhost:3001/api/v1/customers')
