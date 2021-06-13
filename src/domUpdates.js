@@ -13,6 +13,17 @@ let domUpdates = {
   },
   displayPastBookings(currentUser, pastBookingsView) {
   // pastBookingsView.innerHTML = '';
+  // const result = nationalParks.reduce((accum, parkAct) => {
+  //   parkAct.activities.forEach(act => {
+  //     if (!accum.includes(act)) {
+  //       accum.push(act);
+  //       // console.log(parkAct);
+  //     }
+  //   });
+  //   return accum;
+  // }, []);
+  // Probaly I need one more layer of iteration , due to I'm already iterating over the properties of that object, now one more layeer of iterating so i can foun the values that I'm trying to rearch.
+  // parkAct.pastBookings
   currentUser.pastBookings.forEach(pastVisit => {
     pastBookingsView.insertAdjacentHTML('afterbegin',
    `<p>You stay on room ${pastVisits.roomNumber} on ${pastVisits.date}</p>`)
