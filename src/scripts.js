@@ -1,5 +1,6 @@
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
+import dayjs from 'dayjs';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 
@@ -107,9 +108,11 @@ function test2() {
 
 function loadDomUpdates(currentUser) {
   let myCurrentDate = new Date()
+  let dateDayJs = dayjs(myCurrentDate).format('dddd - MMM / DD / YYYY');
   console.log(myCurrentDate);
+  console.log(dateDayJs);
   domUpdates.displayGreetUser(currentUser);
-  domUpdates.displayCurrentDate(myCurrentDate)
+  domUpdates.displayCurrentDate(dateDayJs)
   domUpdates.displayPastBookings(currentUser, pastBookingsView)
   domUpdates.displayPresentBookings(currentUser, presentBookingsView)
   domUpdates.displayFutureBookings(currentUser, futureBookingsView)
