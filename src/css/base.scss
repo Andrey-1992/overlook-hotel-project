@@ -41,3 +41,27 @@ form {
   flex-direction: column;
   align-items: center;
 }
+
+// Bookings User Section
+.bookings-view {
+  border: 2px solid blue;
+  display: flex;
+  // flex-direction: column;
+  align-content: space-around;
+  align-items: center;
+}
+
+.past-bookings-view {
+  border: 2px solid black;
+  margin: auto;
+}
+
+.present-bookings-view {
+  border: 2px solid black;
+  margin: auto;
+}
+
+.future-bookings-view {
+  border: 2px solid black;
+  margin: auto;
+}

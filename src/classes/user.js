@@ -3,7 +3,8 @@ class User {
     this.id = clientData.id;
     this.name = clientData.name;
     this.pastBookings = [];
-    this.upcomingBookings = [];
+    this.presentBookings = [];
+    this.futureBookings = [];
     this.hotelTotalSpent = 0;
   };
   findPastBookings(bookingsData) {
@@ -14,10 +15,26 @@ class User {
     })
     return findBookings;
   };
+  findUpcomingBookings(bookingsData) {
+    let findBookings = bookingsData.filter(booking => {
+      if (booking.userID === this.id) {
+        this.presentBookings.push(booking);
+      }
+    })
+    return findBookings;
+  };
+  // findFutureBookings(bookingsData) {
+  //   let findBookings = bookingsData.filter(booking => {
+  //     if (booking.userID === this.id) {
+  //       this.pastBookings.push(booking);
+  //     }
+  //   })
+  //   return findBookings;
+  // };
   calculateTotalMoneySpent(roomsData) {
     let sumRoomsCost = 0;
     roomsData.forEach(roomCost => {
-      this.pastBookings.filter(bookings => {
+      this.futureBookings.filter(bookings => {
         if (bookings.roomNumber === roomCost.number) {
           sumRoomsCost += roomCost.costPerNight
         }

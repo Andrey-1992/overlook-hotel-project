@@ -3,6 +3,7 @@ const expect = chai.expect;
 
 import Room from '../src/classes/rooms.js';
 import roomsData from '../src/test-data/roomsData.js'
+// console.log(roomsData);
 
 describe('Room', () => {
 
@@ -13,10 +14,12 @@ describe('Room', () => {
   });
 
   it('should be a function', () => {
+
     expect(Room).to.be.a('function');
   });
 
   it('should create new instances of User', () => {
+    console.log(roomBooking);
     expect(roomBooking).to.be.an.instanceof(Room);
   });
 
@@ -39,7 +42,9 @@ describe('Room', () => {
 
   it('should indicate the number of beds per room', () => {
     expect(currentUser.numBeds).to.be.number();
+  });
 
   it('should indicate the cost per night per room', () => {
     expect(currentUser.costPerNight).to.be.equal(358.4);
-};
+  });
+});
