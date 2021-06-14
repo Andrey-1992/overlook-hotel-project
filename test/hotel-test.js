@@ -6,6 +6,7 @@ import customersData from '../src/test-data/customersData.js'
 import bookingsData from '../src/test-data/bookingsData.js'
 import roomsData from '../src/test-data/roomsData.js'
 
+
 describe('Hotel', () => {
   let hotel;
 
