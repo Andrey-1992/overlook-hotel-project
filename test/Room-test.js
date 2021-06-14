@@ -19,7 +19,6 @@ describe('Room', () => {
   });
 
   it('should create new instances of User', () => {
-    console.log(roomBooking);
     expect(roomBooking).to.be.an.instanceof(Room);
   });
 
@@ -29,22 +28,22 @@ describe('Room', () => {
   });
 
   it('should indicate the type of the room', () => {
-    expect(currentUser.roomType).to.equal('residential suite');
+    expect(roomBooking.roomType).to.equal('residential suite');
   });
 
   it('should indicate if it has a bidet on it', () => {
-    expect(currentUser.bidet).to.be.boolean();
+    expect(roomBooking.bidet).to.be.equal(true);
   });
 
   it('should indicate the type of the room', () => {
-    expect(currentUser.bedSize).to.equal('queen');
+    expect(roomBooking.bedSize).to.equal('queen');
   });
 
   it('should indicate the number of beds per room', () => {
-    expect(currentUser.numBeds).to.be.number();
+    expect(roomBooking.numBeds).to.be.equal(1);
   });
 
   it('should indicate the cost per night per room', () => {
-    expect(currentUser.costPerNight).to.be.equal(358.4);
+    expect(roomBooking.costPerNight).to.be.equal(358.4);
   });
 });
