@@ -5,7 +5,7 @@ import User from '../src/classes/user.js';
 import customersData from '../src/test-data/customersData.js'
 import bookingsData from '../src/test-data/bookingsData.js'
 import roomsData from '../src/test-data/roomsData.js'
-// console.log(bookingsData);
+
 describe('User', () => {
 
   let currentUser;
@@ -14,32 +14,32 @@ describe('User', () => {
     currentUser = new User(customersData[0]);
   });
 
-  it.only('should be a function', () => {
+  it('should be a function', () => {
     expect(User).to.be.a('function');
   });
 
-  it.only('should create new instances of User', () => {
+  it('should create new instances of User', () => {
     expect(currentUser).to.be.an.instanceof(User);
   });
 
-  it.only('should be stored with an id number', () => {
+  it('should be stored with an id number', () => {
 
     expect(currentUser.id).to.equal(1);
   });
 
-  it.only('should store the name of the user', () => {
+  it('should store the name of the user', () => {
 
     expect(currentUser.name).to.equal('Leatha Ullrich');
   });
 
-  it.only('should properties to storage past and upcoming bookings', () => {
+  it('should properties to storage past and upcoming bookings', () => {
 
     expect(currentUser.pastBookings).to.be.deep.equal([]);
     expect(currentUser.presentBookings).to.be.deep.equal([]);
     expect(currentUser.futureBookings).to.be.deep.equal([]);
   });
 
-  it.only('should create and storage the user bookings history ', () => {
+  it('should create and storage the user bookings history ', () => {
 
     currentUser.findPastBookings(bookingsData);
 
@@ -66,12 +66,12 @@ describe('User', () => {
     }]);
   });
 
-  it.only('should storage the number of the money spent in the hotel', () => {
+  it('should storage the number of the money spent in the hotel', () => {
 
     expect(currentUser.hotelTotalSpent).to.be.equal(0);
   });
 
-  it.only('should storage a sum of the total spent money in the hotel', () => {
+  it('should storage a sum of the total spent money in the hotel', () => {
 
     currentUser.calculateTotalMoneySpent(roomsData);
 

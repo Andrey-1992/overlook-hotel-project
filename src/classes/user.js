@@ -23,18 +23,10 @@ class User {
     })
     return findBookings;
   };
-  // findFutureBookings(bookingsData) {
-  //   let findBookings = bookingsData.filter(booking => {
-  //     if (booking.userID === this.id) {
-  //       this.pastBookings.push(booking);
-  //     }
-  //   })
-  //   return findBookings;
-  // };
   calculateTotalMoneySpent(roomsData) {
     let sumRoomsCost = 0;
     roomsData.forEach(roomCost => {
-      this.futureBookings.filter(bookings => {
+      this.pastBookings.filter(bookings => {
         if (bookings.roomNumber === roomCost.number) {
           sumRoomsCost += roomCost.costPerNight
         }
