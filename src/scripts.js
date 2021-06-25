@@ -6,6 +6,7 @@ import './images/turing-logo.png'
 
 
 import User from './classes/user.js';
+import Hotel from './classes/hotel.js';
 import Room from './classes/rooms.js';
 import { fetchCalls } from './apiCalls.js';
 import domUpdates from './domUpdates';
@@ -15,10 +16,12 @@ import domUpdates from './domUpdates';
 let userInfo = document.getElementById('userInfo');
 let hotelInfo = document.getElementById('hotelInfo');
 let bookingsView = document.getElementById('bookingsView');
-let searchView = document.getElementById('searchView');
 let pastBookingsView = document.getElementById('pastBookingsView');
 let presentBookingsView = document.getElementById('presentBookingsView');
 let futureBookingsView = document.getElementById('futureBookingsView');
+let searchView = document.getElementById('searchView');
+let showRooms= document.getElementById('showRooms');
+let filterByRoomType = document.getElementById('filterByRoomType');
 
 
 
@@ -31,6 +34,8 @@ let roomsData;
 console.log("GlobalVar", roomsData)
 let currentUser;
 console.log("GlobalUserInstances", currentUser);
+let hotel;
+console.log("GlobalUserInstances", hotel);
 
 
 
@@ -61,28 +66,20 @@ function initializedData(customers, bookings, rooms) {
   console.log('assignDataApi', roomsData);
 
   let currentUser = new User(customersData[0]);
-  // currentUser.findPastBookings(bookingsData);
-  // currentUser.findPresentBookings(bookingsData);
-  // currentUser.findFutureBookings(bookingsData);
   currentUser.findBookings(bookingsData);
-
   currentUser.calculateTotalMoneySpent(roomsData);
   console.log("updateUserValues", currentUser);
 
+  let hotel = new Hotel(roomsData, bookingsData, customersData);
+  hotel.findAvailableRooms(inputDate) 
+  console.log('instatiateHotelClass', hotel);
 
-  loadDomUpdates(currentUser);
-  // domUpdates.displayGreetUser(currentUser);
-  // let myCurrentDate = new Date()
-  // console.log(myCurrentDate);
-  // domUpdates.displayCurrentDate(myCurrentDate)
-  // domUpdates.displayPastBookings(currentUser, pastBookingsView)
-  // domUpdates.displayPresentBookings(currentUser, presentBookingsView)
-  // domUpdates.displayFutureBookings(currentUser, futureBookingsView)
-  // domUpdates.displayTotalSpent(currentUser);
-  // createUser(customersData)
+
+    loadUserUpdates(currentUser);
+
 };
 
-function loadDomUpdates(currentUser) {
+function loadUserUpdates(currentUser) {
   let myCurrentDate = new Date()
   let dateDayJs = dayjs(myCurrentDate).format('dddd - MMM / DD / YYYY');
   console.log("dateDayJs", dateDayJs);

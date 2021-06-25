@@ -5,15 +5,12 @@ class Hotel {
     this.customers = customersData;
     this.avaiableRooms = [];
   }
-
-  findRoomsAvaiable(date) {
-    // This first methods is to compare and find the available "BOOKINGS" based on the user search date.
-    // 1. This method could be used in the scipt.js to take the "input.value" as an argument and compare with the roomsData data find the available roms fopr tHat date.
+  findAvailableRooms(inputDate) {
+    // 1. This method could be used in the scipt.js to take the "input.value" as an argument and compare with the roomsData.
       const bookedRoomNumbers = this.bookings.reduce((roomNumbers, booking) => {
-        if (booking.date === date) {
+        if (booking.date === inputDate) {
           roomNumbers.push(booking.roomNumber);
         }
-        // console.log(roomNumbers)
         return roomNumbers;
       }, []);
       console.log('findBookings', bookedRoomNumbers);
