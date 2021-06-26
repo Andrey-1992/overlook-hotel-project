@@ -13,6 +13,16 @@ import domUpdates from './domUpdates';
 
 
 // Dom selection
+let loginView = document.getElementById('loginView');
+let loginForm = document.getElementById('loginForm');
+let loginUsername = document.getElementById('loginUsername');
+let loginPassword = document.getElementById('loginPassword');
+let loginBtn = document.getElementById('loginBtn');
+
+let bookingForm = document.getElementById('bookingForm');
+let makeBookingBtn = document.getElementById('makeBookingBtn');
+let submit = document.getElementById('submit');
+
 let userInfo = document.getElementById('userInfo');
 let hotelInfo = document.getElementById('hotelInfo');
 let bookingsView = document.getElementById('bookingsView');
@@ -29,13 +39,15 @@ let homeViewBtn = document.getElementById('homeViewBtn');
 
 
 // Gobal Variables
-let customersData, bookingsData, roomsData
+let customersData, bookingsData, roomsData, hotel, currentUser;
 
 
 // Event listeners
 window.addEventListener('load', promiseFetchData);
 submitSearchBtn.addEventListener('click', showBookingsByDate);
 homeViewBtn.addEventListener('click', returnToHomeView);
+// bookingForm.addEventListener('submit', selectBooking);
+
 
 // Functions
 function preventDefault() {
@@ -70,12 +82,12 @@ function initializedData(customers, bookings, rooms) {
   console.log('assignDataApi', bookingsData);
   console.log('assignDataApi', roomsData);
 
-  let currentUser = new User(customersData[0]);
+  currentUser = new User(customersData[0]);
   currentUser.findBookings(bookingsData);
   currentUser.calculateTotalMoneySpent(roomsData);
   console.log("updateUserValues", currentUser);
 
-  let hotel = new Hotel(roomsData, bookingsData, customersData);
+  hotel = new Hotel(roomsData, bookingsData, customersData);
   console.log('instatiateHotelClass', hotel);
 
   loadUserUpdates(currentUser);
@@ -100,6 +112,8 @@ function showBookingsByDate() {
   hide(futureBookingsView);
   show(showRoomsByDate);
   show(homeViewBtn);
+  console.log('prueba', customersData);
+  console.log('prueba', currentUser);
 
   let selectedDate = searchDate.value;
   let dateJs = dayjs(selectedDate).format('YYYY/MM/DD');
@@ -109,7 +123,9 @@ function showBookingsByDate() {
   hotel.findAvailableRooms(dateJs);
   // hotel.findAvailableRooms(dateJs.toString());
   console.log("test2", hotel);
-  domUpdates.displayBookingsByDate(hotel, showRoomsByDate)
+  domUpdates.displayBookingsByDate(hotel, showRoomsByDate, selectBooking)
+  // let bookingForm = document.getElementById('bookingForm');
+  // bookingForm.addEventListener('submit', selectBooking);
 };
 
 function returnToHomeView() {
@@ -124,3 +140,10 @@ function returnToHomeView() {
   currentUser.findBookings(bookingsData);
   currentUser.calculateTotalMoneySpent(roomsData);
 };
+
+function selectBooking() {
+  preventDefault();
+  console.log("test")
+
+  fetchCalls.postNewRoomBooking({});
+}

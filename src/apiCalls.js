@@ -29,6 +29,6 @@ export const fetchCalls = {
       },
       body: JSON.stringify(body),
     })
-      .then(response => response)
+      .then(response => response.json())
   }
 };

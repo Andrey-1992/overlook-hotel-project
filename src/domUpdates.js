@@ -35,7 +35,7 @@ let domUpdates = {
       `<p>You do not have any bookings for today !</p>`)
     }
   },
-  displayFutureBookings(currentUser, futureBookingsView) {
+  displayFutureBookings(currentUser, futureBookingsView, selectBooking) {
     // console.log('testFuture', currentUser.futureBookings.length)
     futureBookingsView.innerHTML = '';
       if (currentUser.futureBookings.length) {
@@ -49,11 +49,13 @@ let domUpdates = {
         `<p>You do not have any future bookings !</p>`)
       }
   },
-  displayBookingsByDate(hotel, showRoomsByDate) {
+  displayBookingsByDate(hotel, showRoomsByDate, selectBooking) {
     showRoomsByDate.innerHTML = '';
     return hotel.avaiableRooms.forEach(availableRoom => {
-      showRoomsByDate.insertAdjacentHTML('afterbegin',
-        `<form method="post">
+      let roomForm = document.createElement('form')
+      console.log(roomForm);
+      roomForm.insertAdjacentHTML('afterbegin',
+        `
           <label class="room-info" for="roomInfo">Room's Info:</label>
             <p>Room# : ${availableRoom.number}</p>
             <p>Type: ${availableRoom.roomType}</p>
@@ -61,8 +63,10 @@ let domUpdates = {
             <p>Bed Size: ${availableRoom.bedSize}</p>
             <p>Number of Beds# : ${availableRoom.numBeds}</p>
             <p>Cost per Night: ${availableRoom.costPerNight}</p>
-          <input type="submit" value="Book" id="makeBookingBtn"/>
-        </form>`)
+          <button type="submit" value="Book" id="makeBookingBtn">Book</button>
+      `)
+      roomForm.addEventListener('submit', selectBooking);
+      showRoomsByDate.appendChild(roomForm);
     })
   }
 }
