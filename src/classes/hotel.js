@@ -7,8 +7,10 @@ class Hotel {
   }
   findAvailableRooms(inputDate) {
     // 1. This method could be used in the scipt.js to take the "input.value" as an argument and compare with the roomsData.
+    // console.log(typeof this.bookings);
       const bookedRoomNumbers = this.bookings.reduce((roomNumbers, booking) => {
-        if (booking.date === inputDate) {
+        // let parseDate = parseInt(booking.date)
+        if (!booking.date.includes(inputDate)) {
           roomNumbers.push(booking.roomNumber);
         }
         return roomNumbers;
@@ -20,7 +22,7 @@ class Hotel {
       console.log('matchBooksWithRooms', openRooms);
       // 3. now that we already match our bookings dates and find the rooms data to disolay on the DOM, we will reassing the property of this.avaiableRooms with this information, which will not contain dates, it will contain the rooms availables from those dates.
       this.avaiableRooms = openRooms;
-      console.log("assignInAvailableRooms", avaiableRooms);
+      console.log("assignInAvailableRooms", this.avaiableRooms);
       // 4. We just will return all this proces and have this property ready to be display on the DOM.
       return this.avaiableRooms
     }

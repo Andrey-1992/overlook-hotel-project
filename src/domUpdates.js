@@ -48,6 +48,22 @@ let domUpdates = {
         return futureBookingsView.insertAdjacentHTML('afterbegin',
         `<p>You do not have any future bookings !</p>`)
       }
+  },
+  displayBookingsByDate(hotel, showRoomsByDate) {
+    showRoomsByDate.innerHTML = '';
+    return hotel.avaiableRooms.forEach(availableRoom => {
+      showRoomsByDate.insertAdjacentHTML('afterbegin',
+        `<form method="post">
+          <label class="room-info" for="roomInfo">Room's Info:</label>
+            <p>Room# : ${availableRoom.number}</p>
+            <p>Type: ${availableRoom.roomType}</p>
+            <p>Bidet: ${availableRoom.bidet}</p>
+            <p>Bed Size: ${availableRoom.bedSize}</p>
+            <p>Number of Beds# : ${availableRoom.numBeds}</p>
+            <p>Cost per Night: ${availableRoom.costPerNight}</p>
+          <input type="submit" value="Book" id="makeBookingBtn"/>
+        </form>`)
+    })
   }
 }
 

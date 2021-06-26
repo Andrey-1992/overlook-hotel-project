@@ -20,30 +20,35 @@ let pastBookingsView = document.getElementById('pastBookingsView');
 let presentBookingsView = document.getElementById('presentBookingsView');
 let futureBookingsView = document.getElementById('futureBookingsView');
 let searchView = document.getElementById('searchView');
-let showRooms= document.getElementById('showRooms');
+let searchDate = document.getElementById('searchDate');
+let showRoomsByDate = document.getElementById('showRoomsByDate');
 let filterByRoomType = document.getElementById('filterByRoomType');
+let submitSearchBtn = document.getElementById('submitSearchBtn');
+let homeViewBtn = document.getElementById('homeViewBtn');
 
 
 
 // Gobal Variables
-let customersData;
-console.log("GlobalVar", customersData)
-let bookingsData;
-console.log("GlobalVar", bookingsData)
-let roomsData;
-console.log("GlobalVar", roomsData)
-let currentUser;
-console.log("GlobalUserInstances", currentUser);
-let hotel;
-console.log("GlobalUserInstances", hotel);
-
+let customersData, bookingsData, roomsData
 
 
 // Event listeners
 window.addEventListener('load', promiseFetchData);
-
+submitSearchBtn.addEventListener('click', showBookingsByDate);
+homeViewBtn.addEventListener('click', returnToHomeView);
 
 // Functions
+function preventDefault() {
+  event.preventDefault()
+}
+
+function show(element) {
+  element.classList.remove('hidden');
+}
+
+function hide(element) {
+  element.classList.add('hidden');
+}
 
 function promiseFetchData() {
   const customers = fetchCalls.callCustomersData();
@@ -54,7 +59,7 @@ function promiseFetchData() {
     initializedData(data[0].customers, data[1].bookings, data[2].rooms);
     // The data that our fetch API is sending us is an object, one "property" as a key and an "array" as his value, we need to use dot notation go into the nested data and select the property.
   })
-  // .catch(err => console.error(err))
+  .catch(err => console.error(err))
 };
 
 function initializedData(customers, bookings, rooms) {
@@ -71,12 +76,9 @@ function initializedData(customers, bookings, rooms) {
   console.log("updateUserValues", currentUser);
 
   let hotel = new Hotel(roomsData, bookingsData, customersData);
-  hotel.findAvailableRooms(inputDate) 
   console.log('instatiateHotelClass', hotel);
 
-
-    loadUserUpdates(currentUser);
-
+  loadUserUpdates(currentUser);
 };
 
 function loadUserUpdates(currentUser) {
@@ -89,4 +91,36 @@ function loadUserUpdates(currentUser) {
   domUpdates.displayPastBookings(currentUser, pastBookingsView);
   domUpdates.displayPresentBookings(currentUser, presentBookingsView);
   domUpdates.displayFutureBookings(currentUser, futureBookingsView);
-}
+};
+
+function showBookingsByDate() {
+  preventDefault();
+  hide(pastBookingsView);
+  hide(presentBookingsView);
+  hide(futureBookingsView);
+  show(showRoomsByDate);
+  show(homeViewBtn);
+
+  let selectedDate = searchDate.value;
+  let dateJs = dayjs(selectedDate).format('YYYY/MM/DD');
+  console.log(dateJs);
+
+  let hotel = new Hotel(roomsData, bookingsData, customersData);
+  hotel.findAvailableRooms(dateJs);
+  // hotel.findAvailableRooms(dateJs.toString());
+  console.log("test2", hotel);
+  domUpdates.displayBookingsByDate(hotel, showRoomsByDate)
+};
+
+function returnToHomeView() {
+  preventDefault();
+  show(pastBookingsView);
+  show(presentBookingsView);
+  show(futureBookingsView);
+  hide(showRoomsByDate);
+  hide(homeViewBtn);
+
+  let currentUser = new User(customersData[0]);
+  currentUser.findBookings(bookingsData);
+  currentUser.calculateTotalMoneySpent(roomsData);
+};

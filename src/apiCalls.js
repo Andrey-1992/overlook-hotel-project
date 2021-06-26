@@ -5,7 +5,6 @@ export const fetchCalls = {
       .then(response => response.json())
       // .then(data => data)
       .catch(err => console.error(err))
-
   },
 
   callBookingsData() {

@@ -11,22 +11,20 @@
   <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   <header>
     <section class="hotel-info" id="hotelInfo">
-      <!-- <h1>Overlook Hotel</h1>
-      <p>Current Date: 06/12/2021</p> -->
     </section>
     <section class="user-info" id="userInfo">
-      <!-- <h3 class="user-greeting" id="userGreeting">Welcome Guest!</h3> -->
-      <!-- <p class="total-spent" id="totalSpent">You have spent a total of: $5,000 !</p> -->
     </section>
+    <!-- <button class="home-view-btn" id="homeViewBtn">Home</button> -->
   </header>
   <section class="room-search" id="roomSearch">
-    <form method="post">
-      <label class="search-room" for="searchRoom">Book a room</label>
-      <input type="date" id="searchRoom"/>
-      <input type="submit" value="submit"/>
+    <form method="get">
+      <label class="search-date" for="searchDate">Book a room</label>
+      <input type="date" id="searchDate"/>
+      <input type="submit" value="search" id="submitSearchBtn"/>
     </form>
+    <button class="home-view-btn" id="homeViewBtn">Home</button>
   </section>
-  <section class="bookings-view" id="bookingsView" hidden>
+  <section class="bookings-view" id="bookingsView">
     <section class="past-bookings-view" id="pastBookingsView">
     </section>
     <section class="present-bookings-view" id="presentBookingsView">
@@ -34,8 +32,8 @@
     <section class="future-bookings-view" id="futureBookingsView">
     </section>
   </section>
-  <section class="search-view" id="searchView" hidden>
-    <section class="show-rooms" id="showRooms">
+  <section class="search-view" id="searchView">
+    <section class="show-rooms" id="showRoomsByDate">
     </section>
     <section class="filter-by-room-type" id="filterByRoomType">
     </section>
