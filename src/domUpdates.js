@@ -53,7 +53,7 @@ let domUpdates = {
     showRoomsByDate.innerHTML = '';
     return hotel.avaiableRooms.forEach(availableRoom => {
       let roomForm = document.createElement('form')
-      console.log(roomForm);
+      // console.log(roomForm);
       roomForm.insertAdjacentHTML('afterbegin',
         `
           <label class="room-info" for="roomInfo">Room's Info:</label>

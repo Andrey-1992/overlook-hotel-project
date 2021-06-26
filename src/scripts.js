@@ -13,26 +13,30 @@ import domUpdates from './domUpdates';
 
 
 // Dom selection
+
+//Login view section
 let loginView = document.getElementById('loginView');
 let loginForm = document.getElementById('loginForm');
 let loginUsername = document.getElementById('loginUsername');
 let loginPassword = document.getElementById('loginPassword');
 let loginBtn = document.getElementById('loginBtn');
-
+// Booking view section
 let bookingForm = document.getElementById('bookingForm');
 let makeBookingBtn = document.getElementById('makeBookingBtn');
 let submit = document.getElementById('submit');
-
+// Main view section
 let userInfo = document.getElementById('userInfo');
 let hotelInfo = document.getElementById('hotelInfo');
 let bookingsView = document.getElementById('bookingsView');
 let pastBookingsView = document.getElementById('pastBookingsView');
 let presentBookingsView = document.getElementById('presentBookingsView');
 let futureBookingsView = document.getElementById('futureBookingsView');
+//Search view section
 let searchView = document.getElementById('searchView');
 let searchDate = document.getElementById('searchDate');
 let showRoomsByDate = document.getElementById('showRoomsByDate');
 let filterByRoomType = document.getElementById('filterByRoomType');
+// Buttons sections
 let submitSearchBtn = document.getElementById('submitSearchBtn');
 let homeViewBtn = document.getElementById('homeViewBtn');
 
@@ -82,13 +86,13 @@ function initializedData(customers, bookings, rooms) {
   console.log('assignDataApi', bookingsData);
   console.log('assignDataApi', roomsData);
 
+  hotel = new Hotel(roomsData, bookingsData, customersData);
+  console.log('instatiateHotelClass', hotel);
+
   currentUser = new User(customersData[0]);
   currentUser.findBookings(bookingsData);
   currentUser.calculateTotalMoneySpent(roomsData);
   console.log("updateUserValues", currentUser);
-
-  hotel = new Hotel(roomsData, bookingsData, customersData);
-  console.log('instatiateHotelClass', hotel);
 
   loadUserUpdates(currentUser);
 };
@@ -119,13 +123,9 @@ function showBookingsByDate() {
   let dateJs = dayjs(selectedDate).format('YYYY/MM/DD');
   console.log(dateJs);
 
-  let hotel = new Hotel(roomsData, bookingsData, customersData);
+  // let hotel = new Hotel(roomsData, bookingsData, customersData);
   hotel.findAvailableRooms(dateJs);
-  // hotel.findAvailableRooms(dateJs.toString());
-  console.log("test2", hotel);
   domUpdates.displayBookingsByDate(hotel, showRoomsByDate, selectBooking)
-  // let bookingForm = document.getElementById('bookingForm');
-  // bookingForm.addEventListener('submit', selectBooking);
 };
 
 function returnToHomeView() {
@@ -136,14 +136,31 @@ function returnToHomeView() {
   hide(showRoomsByDate);
   hide(homeViewBtn);
 
-  let currentUser = new User(customersData[0]);
+  // let currentUser = new User(customersData[0]);
   currentUser.findBookings(bookingsData);
   currentUser.calculateTotalMoneySpent(roomsData);
+  loadUserUpdates(currentUser);
+  console.log(currentUser);
 };
 
 function selectBooking() {
   preventDefault();
   console.log("test")
 
-  fetchCalls.postNewRoomBooking({});
+  // let selectedDate = searchDate.value;
+  // let dateJs = dayjs(selectedDate).format('YYYY/MM/DD');
+
+  let addBooking = {
+     userID: 1,
+     date: "2021/06/26",
+     roomNumber: 25
+    };
+
+  // let addBooking = {
+  //    "userID": 1,
+  //     "date": 2021/06/27,
+  //     "roomNumber": 4
+  //   }
+
+  fetchCalls.postNewRoomBooking(addBooking);
 }

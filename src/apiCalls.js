@@ -30,5 +30,6 @@ export const fetchCalls = {
       body: JSON.stringify(body),
     })
       .then(response => response.json())
+      .then(confirmation => console.log(confirmation));
   }
 };
