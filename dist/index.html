@@ -9,35 +9,50 @@
 <body>
   <!-- <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px"> -->
   <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
-  <header>
-    <section class="hotel-info" id="hotelInfo">
+  <section class="login-view" id="loginView" hidden>
+   <nav class="login-nav">
+     <h1 class="login-title">Welcome to Overlook Hotel!</h1>
+     <h2 class="login-message">Please sign in to view your account</h2>
+   </nav>
+   <form class="login-form" id="loginForm">
+     <input aria-label="username-input" type="text" placeholder="Enter Your Username" name="login" id="loginUsername"
+       class="login-username-input" required>
+     <input aria-label="password-input" type="password" placeholder="Enter Your Password" name="password"
+       id="loginPassword" class="login-username-input" required>
+     <button class="login-button" type="sumbit" id="loginBtn">Log In</button>
+   </form>
+ </section>
+  <main>
+    <header>
+      <section class="hotel-info" id="hotelInfo">
+      </section>
+      <section class="user-info" id="userInfo">
+      </section>
+      <!-- <button class="home-view-btn" id="homeViewBtn">Home</button> -->
+    </header>
+    <section class="room-search" id="roomSearch">
+      <form method="get">
+        <label class="search-date" for="searchDate">Book a room</label>
+        <input type="date" id="searchDate"/>
+        <input type="submit" value="search" id="submitSearchBtn"/>
+      </form>
+      <button class="home-view-btn" id="homeViewBtn">Home</button>
     </section>
-    <section class="user-info" id="userInfo">
+    <section class="bookings-view" id="bookingsView">
+      <section class="past-bookings-view" id="pastBookingsView">
+      </section>
+      <section class="present-bookings-view" id="presentBookingsView">
+      </section>
+      <section class="future-bookings-view" id="futureBookingsView">
+      </section>
     </section>
-    <!-- <button class="home-view-btn" id="homeViewBtn">Home</button> -->
-  </header>
-  <section class="room-search" id="roomSearch">
-    <form method="get">
-      <label class="search-date" for="searchDate">Book a room</label>
-      <input type="date" id="searchDate"/>
-      <input type="submit" value="search" id="submitSearchBtn"/>
-    </form>
-    <button class="home-view-btn" id="homeViewBtn">Home</button>
-  </section>
-  <section class="bookings-view" id="bookingsView">
-    <section class="past-bookings-view" id="pastBookingsView">
+    <section class="search-view" id="searchView">
+      <section class="show-rooms" id="showRoomsByDate">
+      </section>
+      <section class="filter-by-room-type" id="filterByRoomType">
+      </section>
     </section>
-    <section class="present-bookings-view" id="presentBookingsView">
-    </section>
-    <section class="future-bookings-view" id="futureBookingsView">
-    </section>
-  </section>
-  <section class="search-view" id="searchView">
-    <section class="show-rooms" id="showRoomsByDate">
-    </section>
-    <section class="filter-by-room-type" id="filterByRoomType">
-    </section>
-  </section>
+  </main>
   <script src="bundle.js"></script>
 </body>
 </html>
