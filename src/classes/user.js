@@ -11,20 +11,25 @@ class User {
   };
   findBookings(bookingsData) {
      let customerBookings = bookingsData.filter(booking => booking.userID === this.id);
-     let today = dayjs();
+     let today = dayjs()
+     // .format('YYYY/MM/DD');
+     // console.log('currentDate', today)
 
      customerBookings.forEach(booking => {
        let bookingDate = dayjs(booking.date);
-       if(bookingDate.isBefore(today, 'day')) {
+       // console.log('testDayJs', bookingDate);
+       if(bookingDate.isBefore(today, 'day') && !this.pastBookings.includes(booking)) {
          this.pastBookings.push(booking);
-       } else if (bookingDate.isAfter(today, 'day')){
+         console.log('past', this.pastBookings)
+       } else if (bookingDate.isAfter(today, 'day') && !this.futureBookings.includes(booking)){
          this.futureBookings.push(booking);
-       } else if (bookingDate.isSame(today, 'day')) {
+         console.log('ft', this.futureBookings)
+       } else if (bookingDate.isSame(today, 'day') && !this.presentBookings.includes(booking)) {
          this.presentBookings.push(booking);
+         console.log('present', this.presentBookings)
        }
      })
    }
-  // Is using the data from "roosData" to iterate over thids array and find the price from this array
   calculateTotalMoneySpent(roomsData) {
     let sumRoomsCost = 0;
     roomsData.forEach(roomCost => {
@@ -52,6 +57,9 @@ export default User;
       //   return findBookings;
       // };
       // // Is using the data from "bookingsData" to iterate over thids array and find the price from this array
+
+
+
       // findPresentBookings(bookingsData) {
         //   let findBookings = bookingsData.filter(booking => {
           //     if (booking.userID === this.id) {

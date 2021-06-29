@@ -25,9 +25,9 @@ let domUpdates = {
   // console.log('testPresent', currentUser.presentBookings.length)
   presentBookingsView.innerHTML = '';
     if (currentUser.presentBookings.length) {
-      return currentUser.presentBookings.forEach(pastVisit => {
+      return currentUser.presentBookings.forEach(presentBookings => {
         presentBookingsView.insertAdjacentHTML('afterbegin',
-        `<p>Your past visit was on:</p>
+        `<p>Your present visit is on:</p>
         <p>-Date: ${presentBookings.date}, on room# ${presentBookings.roomNumber}</p>`)
       })
     } else {
@@ -35,13 +35,13 @@ let domUpdates = {
       `<p>You do not have any bookings for today !</p>`)
     }
   },
-  displayFutureBookings(currentUser, futureBookingsView, selectBooking) {
+  displayFutureBookings(currentUser, futureBookingsView) {
     // console.log('testFuture', currentUser.futureBookings.length)
     futureBookingsView.innerHTML = '';
       if (currentUser.futureBookings.length) {
-        return currentUser.futureBookings.forEach(pastVisit => {
+        return currentUser.futureBookings.forEach(futureBookings => {
           futureBookingsView.insertAdjacentHTML('afterbegin',
-          `<p>Your past visit was on:</p>
+          `<p>Your future visit will be on:</p>
           <p>-Date: ${futureBookings.date}, on room# ${futureBookings.roomNumber}</p>`)
         })
       } else {
@@ -49,7 +49,7 @@ let domUpdates = {
         `<p>You do not have any future bookings !</p>`)
       }
   },
-  displayBookingsByDate(hotel, showRoomsByDate, selectBooking) {
+  displayBookingsByDate(hotel, showRoomsByDate, addBooking) {
     showRoomsByDate.innerHTML = '';
     return hotel.avaiableRooms.forEach(availableRoom => {
       let roomForm = document.createElement('form')
@@ -65,7 +65,7 @@ let domUpdates = {
             <p>Cost per Night: ${availableRoom.costPerNight}</p>
           <button type="submit" value="Book" id="makeBookingBtn">Book</button>
       `)
-      roomForm.addEventListener('submit', selectBooking);
+      roomForm.addEventListener('submit', addBooking);
       showRoomsByDate.appendChild(roomForm);
     })
   }

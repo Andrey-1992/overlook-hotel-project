@@ -32,6 +32,7 @@ let pastBookingsView = document.getElementById('pastBookingsView');
 let presentBookingsView = document.getElementById('presentBookingsView');
 let futureBookingsView = document.getElementById('futureBookingsView');
 //Search view section
+// let bookingsView = document.getElementById('bookingsView');
 let searchView = document.getElementById('searchView');
 let searchDate = document.getElementById('searchDate');
 let showRoomsByDate = document.getElementById('showRoomsByDate');
@@ -42,15 +43,15 @@ let homeViewBtn = document.getElementById('homeViewBtn');
 
 
 
+
 // Gobal Variables
-let customersData, bookingsData, roomsData, hotel, currentUser;
+let customersData, bookingsData, roomsData, hotel, currentUser, dateJs;
 
 
 // Event listeners
 window.addEventListener('load', promiseFetchData);
 submitSearchBtn.addEventListener('click', showBookingsByDate);
 homeViewBtn.addEventListener('click', returnToHomeView);
-// bookingForm.addEventListener('submit', selectBooking);
 
 
 // Functions
@@ -82,85 +83,80 @@ function initializedData(customers, bookings, rooms) {
   customersData = customers;
   bookingsData = bookings;
   roomsData = rooms;
-  console.log('assignDataApi', typeof customersData);
-  console.log('assignDataApi', bookingsData);
-  console.log('assignDataApi', roomsData);
+  // console.log('assignDataApi', typeof customersData);
+  // console.log('assignDataApi', bookingsData);
+  // console.log('assignDataApi', roomsData);
 
   hotel = new Hotel(roomsData, bookingsData, customersData);
-  console.log('instatiateHotelClass', hotel);
-
   currentUser = new User(customersData[0]);
-  currentUser.findBookings(bookingsData);
-  currentUser.calculateTotalMoneySpent(roomsData);
-  console.log("updateUserValues", currentUser);
+  // console.log(currentUser)
 
-  loadUserUpdates(currentUser);
+  updateUserData(currentUser, bookingsData, roomsData);
+  loadCurrentDate();
+  domUpdates.displayGreetUser(currentUser)
+  loadUserBookings();
+  console.log(currentUser)
 };
 
-function loadUserUpdates(currentUser) {
+function loadCurrentDate() {
   let myCurrentDate = new Date()
-  let dateDayJs = dayjs(myCurrentDate).format('dddd - MMM / DD / YYYY');
-  console.log("dateDayJs", dateDayJs);
-
-  domUpdates.displayGreetUser(currentUser);
+  let dateDayJs = dayjs(myCurrentDate).format('dddd,  MMM - DD - YYYY');
+  // console.log("dateDayJs", dateDayJs);
   domUpdates.displayCurrentDate(dateDayJs);
+};
+
+function updateUserData(currentUser, bookingsData, roomsData) {
+  currentUser.findBookings(bookingsData);
+  currentUser.calculateTotalMoneySpent(roomsData);
+  // loadUserBookings();
+}
+
+function loadUserBookings() {
   domUpdates.displayPastBookings(currentUser, pastBookingsView);
   domUpdates.displayPresentBookings(currentUser, presentBookingsView);
   domUpdates.displayFutureBookings(currentUser, futureBookingsView);
-};
+}
 
 function showBookingsByDate() {
   preventDefault();
-  hide(pastBookingsView);
-  hide(presentBookingsView);
-  hide(futureBookingsView);
+  hide(bookingsView);
   show(showRoomsByDate);
   show(homeViewBtn);
-  console.log('prueba', customersData);
-  console.log('prueba', currentUser);
 
   let selectedDate = searchDate.value;
-  let dateJs = dayjs(selectedDate).format('YYYY/MM/DD');
-  console.log(dateJs);
-
-  // let hotel = new Hotel(roomsData, bookingsData, customersData);
+  dateJs = dayjs(selectedDate).format('YYYY/MM/DD');
+  // console.log(dateJs);
   hotel.findAvailableRooms(dateJs);
-  domUpdates.displayBookingsByDate(hotel, showRoomsByDate, selectBooking)
+  domUpdates.displayBookingsByDate(hotel, showRoomsByDate, addBooking)
 };
 
 function returnToHomeView() {
   preventDefault();
-  show(pastBookingsView);
-  show(presentBookingsView);
-  show(futureBookingsView);
   hide(showRoomsByDate);
   hide(homeViewBtn);
+  show(bookingsView);
 
-  // let currentUser = new User(customersData[0]);
-  currentUser.findBookings(bookingsData);
-  currentUser.calculateTotalMoneySpent(roomsData);
-  loadUserUpdates(currentUser);
-  console.log(currentUser);
+  promiseFetchData();
+  console.log('returnHomeUserView', currentUser);
 };
 
-function selectBooking() {
+function addBooking() {
   preventDefault();
-  console.log("test")
-
-  // let selectedDate = searchDate.value;
-  // let dateJs = dayjs(selectedDate).format('YYYY/MM/DD');
+  // console.log(currentUser.id);
+  // console.log(dateJs);
+  // console.log(hotel.avaiableRooms.number);
+  // console.log(event.target);
 
   let addBooking = {
-     userID: 1,
-     date: "2021/06/26",
+     userID: currentUser.id,
+     date: dateJs,
      roomNumber: 25
     };
-
-  // let addBooking = {
-  //    "userID": 1,
-  //     "date": 2021/06/27,
-  //     "roomNumber": 4
-  //   }
+  console.log('postObject', addBooking)
 
   fetchCalls.postNewRoomBooking(addBooking);
+  // const bookings = fetchCalls.callBookingsData().then(data => updateUserData(currentUser, data, roomsData));
+  // console.log(bookings);
+  // updateUserData(currentUser, bookings, roomsData);
+  // console.log('updatedUser', currentUser);
 }
