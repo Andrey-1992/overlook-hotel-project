@@ -2,7 +2,7 @@ let domUpdates = {
   displayGreetUser(user){
     userInfo.insertAdjacentHTML('afterbegin',
     `<h3 class="user-greeting" id="userGreeting">Welcome ${user.name}!</h3>
-     <p class="total-spent" id="totalSpent">You have spent a total of: ${user.hotelTotalSpent} !</p>`)
+     <p class="total-spent" id="totalSpent">You have spent a total $ ${user.hotelTotalSpent} !</p>`)
   },
   displayCurrentDate(date) {
     hotelInfo.insertAdjacentHTML('afterbegin',
@@ -57,7 +57,7 @@ let domUpdates = {
       roomForm.insertAdjacentHTML('afterbegin',
         `
           <label class="room-info" for="roomInfo">Room's Info:</label>
-            <p>Room# : ${availableRoom.number}</p>
+            <p class="room-num">Room# : ${availableRoom.number}</p>
             <p>Type: ${availableRoom.roomType}</p>
             <p>Bidet: ${availableRoom.bidet}</p>
             <p>Bed Size: ${availableRoom.bedSize}</p>

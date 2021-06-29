@@ -100,7 +100,7 @@ function initializedData(customers, bookings, rooms) {
 
 function loadCurrentDate() {
   let myCurrentDate = new Date()
-  let dateDayJs = dayjs(myCurrentDate).format('dddd,  MMM - DD - YYYY');
+  let dateDayJs = dayjs(myCurrentDate).format('dddd : MMM / DD / YYYY');
   // console.log("dateDayJs", dateDayJs);
   domUpdates.displayCurrentDate(dateDayJs);
 };
@@ -145,12 +145,20 @@ function addBooking() {
   // console.log(currentUser.id);
   // console.log(dateJs);
   // console.log(hotel.avaiableRooms.number);
-  // console.log(event.target);
+  // var text = document.getElementById('container').innerHTML;
+  console.log(typeof parseInt(event.target.querySelector('.room-num').innerHTML.split(' ')[2]));
+  const test1 = event.target.querySelector('.room-num');
+  const test2 = test1.innerHTML.split(' ')[2]
+  const test3 = parseInt(test2);
+  console.log(test3);
+
+
+
 
   let addBooking = {
      userID: currentUser.id,
      date: dateJs,
-     roomNumber: 25
+     roomNumber: test3
     };
   console.log('postObject', addBooking)
 

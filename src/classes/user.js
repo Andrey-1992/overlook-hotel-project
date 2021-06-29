@@ -20,13 +20,13 @@ class User {
        // console.log('testDayJs', bookingDate);
        if(bookingDate.isBefore(today, 'day') && !this.pastBookings.includes(booking)) {
          this.pastBookings.push(booking);
-         console.log('past', this.pastBookings)
+         // console.log('past', this.pastBookings)
        } else if (bookingDate.isAfter(today, 'day') && !this.futureBookings.includes(booking)){
          this.futureBookings.push(booking);
-         console.log('ft', this.futureBookings)
+         // console.log('ft', this.futureBookings)
        } else if (bookingDate.isSame(today, 'day') && !this.presentBookings.includes(booking)) {
          this.presentBookings.push(booking);
-         console.log('present', this.presentBookings)
+         // console.log('present', this.presentBookings)
        }
      })
    }
