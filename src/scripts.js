@@ -92,17 +92,11 @@ function initializedData(customers, bookings, rooms) {
   // console.log(currentUser)
 
   updateUserData(currentUser, bookingsData, roomsData);
+  loadUserInfo(currentUser);
   loadCurrentDate();
-  domUpdates.displayGreetUser(currentUser)
+  // domUpdates.displayGreetUser(currentUser)
   loadUserBookings();
   console.log(currentUser)
-};
-
-function loadCurrentDate() {
-  let myCurrentDate = new Date()
-  let dateDayJs = dayjs(myCurrentDate).format('dddd : MMM / DD / YYYY');
-  // console.log("dateDayJs", dateDayJs);
-  domUpdates.displayCurrentDate(dateDayJs);
 };
 
 function updateUserData(currentUser, bookingsData, roomsData) {
@@ -111,11 +105,25 @@ function updateUserData(currentUser, bookingsData, roomsData) {
   // loadUserBookings();
 }
 
+function loadCurrentDate(currentUser) {
+  let myCurrentDate = new Date()
+  let dateDayJs = dayjs(myCurrentDate).format('dddd : MMM / DD / YYYY');
+  // console.log("dateDayJs", dateDayJs);
+  domUpdates.displayHotelLogo();
+  domUpdates.displayCurrentDate(dateDayJs);
+};
+
+function loadUserInfo(currentUser) {
+  domUpdates.displayGreetUser(currentUser);
+  // domUpdates.displayTotalSpent(currentUser);
+};
+
 function loadUserBookings() {
   domUpdates.displayPastBookings(currentUser, pastBookingsView);
   domUpdates.displayPresentBookings(currentUser, presentBookingsView);
   domUpdates.displayFutureBookings(currentUser, futureBookingsView);
-}
+  domUpdates.displayTotalSpent(currentUser);
+};
 
 function showBookingsByDate() {
   preventDefault();
@@ -141,19 +149,14 @@ function returnToHomeView() {
 };
 
 function addBooking() {
-  preventDefault();
   // console.log(currentUser.id);
   // console.log(dateJs);
-  // console.log(hotel.avaiableRooms.number);
-  // var text = document.getElementById('container').innerHTML;
-  console.log(typeof parseInt(event.target.querySelector('.room-num').innerHTML.split(' ')[2]));
+  // console.log(typeof parseInt(event.target.querySelector('.room-num').innerHTML.split(' ')[2]));
+  preventDefault();
   const test1 = event.target.querySelector('.room-num');
   const test2 = test1.innerHTML.split(' ')[2]
   const test3 = parseInt(test2);
   console.log(test3);
-
-
-
 
   let addBooking = {
      userID: currentUser.id,
@@ -163,8 +166,4 @@ function addBooking() {
   console.log('postObject', addBooking)
 
   fetchCalls.postNewRoomBooking(addBooking);
-  // const bookings = fetchCalls.callBookingsData().then(data => updateUserData(currentUser, data, roomsData));
-  // console.log(bookings);
-  // updateUserData(currentUser, bookings, roomsData);
-  // console.log('updatedUser', currentUser);
-}
+};

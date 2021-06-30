@@ -39,42 +39,8 @@ class User {
         }
       });
     });
-    return this.hotelTotalSpent = sumRoomsCost;
+    return this.hotelTotalSpent = parseInt(sumRoomsCost);
   };
 };
 
 export default User;
-
-
-
-
-// findPastBookings(bookingsData) {
-  //   let findBookings = bookingsData.filter(booking => {
-    //     if (booking.userID === this.id) {
-      //       this.pastBookings.push(booking);
-      //     }
-      //   })
-      //   return findBookings;
-      // };
-      // // Is using the data from "bookingsData" to iterate over thids array and find the price from this array
-
-
-
-      // findPresentBookings(bookingsData) {
-        //   let findBookings = bookingsData.filter(booking => {
-          //     if (booking.userID === this.id) {
-            //       // (booking.userID === this.id && booking.date === current Date)
-            //       this.presentBookings.push(booking);
-            //     }
-            //   })
-            //   return findBookings;
-            // };
-            // findFutureBookings(bookingsData) {
-              //   let findBookings = bookingsData.filter(booking => {
-                //     if (booking.userID === this.id) {
-                  //       // (booking.userID === this.id && booking.date === current Date)
-                  //       this.futureBookings.push(booking);
-                  //     }
-                  //   })
-                  //   return findBookings;
-                  // };

@@ -1,18 +1,24 @@
 let domUpdates = {
   displayGreetUser(user){
     userInfo.insertAdjacentHTML('afterbegin',
-    `<h3 class="user-greeting" id="userGreeting">Welcome ${user.name}!</h3>
-     <p class="total-spent" id="totalSpent">You have spent a total $ ${user.hotelTotalSpent} !</p>`)
-  },
-  displayCurrentDate(date) {
-    hotelInfo.insertAdjacentHTML('afterbegin',
-    `<h1>Overlook Hotel</h1>
-     <p>${date}</p>`)
+    `<h3 class="user-greeting" id="userGreeting">Welcome ${user.name}!</h3>`)
   },
   displayTotalSpent(user){
-    const userTotalSpent = document.getElementById('totalSpent');
-    userTotalSpent.innerHTML = `You have spent a total of: $ ${user.hotelTotalSpent}`;
+    userInfo.insertAdjacentHTML('afterend',
+    `<p class="total-spent" id="totalSpent">You have spent a total $ ${user.hotelTotalSpent} !</p>`)
   },
+  displayHotelLogo() {
+    hotelInfo.insertAdjacentHTML('afterbegin',
+    `<h1>Overlook Hotel</h1>`)
+  },
+  displayCurrentDate(date) {
+    hotelInfo.insertAdjacentHTML('afterend',
+    `<p>${date}</p>`)
+  },
+  // displayTotalSpent(user){
+  //   const userTotalSpent = document.getElementById('totalSpent');
+  //   userTotalSpent.innerHTML = `You have spent a total of: $ ${user.hotelTotalSpent}`;
+  // },
   displayPastBookings(currentUser, pastBookingsView) {
     pastBookingsView.innerHTML = '';
     return currentUser.pastBookings.forEach(pastVisit => {
