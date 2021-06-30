@@ -9,7 +9,23 @@
 <body>
   <!-- <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px"> -->
   <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
-  <section class="login-view" id="loginView" hidden>
+
+  <form action="" class="login-form" id="loginForm">
+    <h1 class="login-header">Login</h1>
+    <section class="group">
+      <input type="email" class="login-input" name="" id="name" required><span class="bar"></span>
+      <label for="" class="login-label">email</label>
+    </section>
+    <section class="group">
+      <input type="password" class="login-input" name="" id="name" required><span class="bar"></span>
+      <label for="" class="login-label">password</label>
+    </section>
+    <button type="submit" class="login-button">Login</button>
+  </form>
+
+
+
+  <!-- <section class="login-view" id="loginView" hidden>
    <nav class="login-nav">
      <h1 class="login-title">Welcome to Overlook Hotel!</h1>
      <h2 class="login-message">Please sign in to view your account</h2>
@@ -28,8 +44,8 @@
       </section>
       <section class="user-info" id="userInfo">
       </section>
-      <!-- <button class="home-view-btn" id="homeViewBtn">Home</button> -->
-    </header>
+     <button class="home-view-btn" id="homeViewBtn">Home</button> -->
+    <!-- </header>
     <section class="room-search" id="roomSearch">
       <form method="get">
         <label class="search-date" for="searchDate">Book a room</label>
@@ -51,7 +67,7 @@
       </section>
       <section class="filter-by-room-type" id="filterByRoomType">
       </section>
-    </section>
+    </section> -->
   </main>
   <script src="bundle.js"></script>
 </body>

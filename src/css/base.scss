@@ -3,9 +3,129 @@ $primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,1
 ;
 
 body {
-  background: $primary-background;
-  margin: 0px;
+  // background: $primary-background;
+  // margin: 0px;
+
+  font-family: 'Roboto';
+  background: #4568DC;
+  background: -webkit-linear-gradient(to right, #B06AB3, #4568DC);
+  background: linear-gradient(to right, #B06AB3, #4568DC);
+  height: 650px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+
+
+
+
+/////////////////LOGIN FORM//////////////////////////////
+.login-header {
+  text-align: center;
+  font-weight: 700;
+}
+
+.login-form {
+  background: #fff;
+  padding: 40px 0;
+  box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+}
+
+.group {
+  position: relative;
+  margin: 45px;
+}
+
+.login-input {
+  background: none;
+  color: #c6c6c6;
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #B06AB3
+}
+
+.login-input:focus {
+  outline: none;
+  color: #5e5d5d;
+}
+
+.login-label {
+  color: #B06AB3;
+  font-size: 16px;
+  position: absolute;
+  left: 5px;
+  top: 10px;
+  transition: 0.4s ease all;
+  pointer-events: none;
+}
+
+.login-input:focus~.login-label,
+.login-input:valid~.login-label {
+  top: -14px;
+  font-size: 12px;
+  color: #2196f3;
+}
+
+.bar {
+  position: relative;
+  display: block;
+  width: 100%;
+  // border: 1px solid black;
+}
+
+.bar::before {
+  content: "";
+  height: 2px;
+  width: 0%;
+  bottom: 0;
+  position: absolute;
+  background: linear-gradient(to right, #B06AB3, #4568DC);
+  transition: 0.7s ease width;
+  left: 0;
+}
+
+.login-input:focus~.bar::before {
+  width: 109%;
+}
+
+.login-button {
+  font-family: "Roboto";
+  background: -webkit-linear-gradient(to right, #B06AB3, #4568DC);
+  background: linear-gradient(to right, #B06AB3, #4568DC);
+  border: none;
+  display: block;
+  width: 60%;
+  margin: 10px auto;
+  color: #fff;
+  height: 40px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  box-shadow: 4px 3px 2px 0px #26222d;
+  opacity: 0.9;
+  transition: 0.2s ease width;
+  width: 70%;
+}
+
+@media screen and (max-width:450px) {
+  .login-label {
+    // position: fixed;
+  }
+};
+
+
+//////////////////////////LOGIN FORM//////////////////////////
+
+
+
+
 
 
 
@@ -35,12 +155,12 @@ header {
 
 
 // Search for room section
-form {
-  border: 2px solid black;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+// form {
+//   border: 2px solid black;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+// }
 
 // Bookings User Section
 .bookings-view {
