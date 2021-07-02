@@ -15,16 +15,19 @@ import domUpdates from './domUpdates';
 // Dom selection
 
 //Login view section
-let loginView = document.getElementById('loginView');
+let loginFormContainer = document.getElementById('loginFormContainer');
 let loginForm = document.getElementById('loginForm');
-let loginUsername = document.getElementById('loginUsername');
-let loginPassword = document.getElementById('loginPassword');
-let loginBtn = document.getElementById('loginBtn');
+let userInput = document.getElementById('userInput');
+let passwordInput = document.getElementById('passwordInput');
+let usernameLabel = document.getElementById('usernameLabel');
+let passwordLabel = document.getElementById('passwordLabel');
+let warnings = document.getElementById('warnings');
 // Booking view section
 let bookingForm = document.getElementById('bookingForm');
 let makeBookingBtn = document.getElementById('makeBookingBtn');
 let submit = document.getElementById('submit');
 // Main view section
+let userView = document.getElementById('userView')
 let userInfo = document.getElementById('userInfo');
 let hotelInfo = document.getElementById('hotelInfo');
 let bookingsView = document.getElementById('bookingsView');
@@ -49,9 +52,10 @@ let customersData, bookingsData, roomsData, hotel, currentUser, dateJs;
 
 
 // Event listeners
-window.addEventListener('load', promiseFetchData);
+// window.addEventListener('load', promiseFetchData);
 submitSearchBtn.addEventListener('click', showBookingsByDate);
 homeViewBtn.addEventListener('click', returnToHomeView);
+loginForm.addEventListener('submit', loginValidation);
 
 
 // Functions
@@ -67,10 +71,36 @@ function hide(element) {
   element.classList.add('hidden');
 }
 
+function loginValidation() {
+  preventDefault();
+  // console.log(userInput.value.length);
+  if (!userInput.value.length || !passwordInput.value.length) {
+    warnings.innerText += '';
+    warnings.innerText += "Please fill out required field";
+  } else if (passwordInput.value !== "overlook2021") {
+    warnings.innerText += '';
+    warnings.innerText += "Invalid Password!";
+  } else if (!userInput.value.includes('customer')) {
+    warnings.innerText += '';
+    warnings.innerText += "Invalid Username!";
+  } else {
+    fetchLoginUser(userInput.value);
+  }
+}
+
+function fetchLoginUser(userId) {
+  // console.log(typeof userIdNum);
+  const userIdNum = parseInt(userId.split('r')[1]);
+  const currentUserId = fetchCalls.callCustomersIdData(userIdNum)
+  .then(data => currentUser = new User(data));
+  promiseFetchData();
+}
+
 function promiseFetchData() {
   const customers = fetchCalls.callCustomersData();
   const bookings = fetchCalls.callBookingsData();
   const rooms = fetchCalls.callRoomsData();
+
   Promise.all([customers, bookings, rooms])
   .then(data => {
     initializedData(data[0].customers, data[1].bookings, data[2].rooms);
@@ -86,16 +116,14 @@ function initializedData(customers, bookings, rooms) {
   // console.log('assignDataApi', typeof customersData);
   // console.log('assignDataApi', bookingsData);
   // console.log('assignDataApi', roomsData);
-
   hotel = new Hotel(roomsData, bookingsData, customersData);
-  currentUser = new User(customersData[0]);
-  // console.log(currentUser)
 
   updateUserData(currentUser, bookingsData, roomsData);
   loadUserInfo(currentUser);
   loadCurrentDate();
-  // domUpdates.displayGreetUser(currentUser)
   loadUserBookings();
+  hide(loginForm);
+  show(userView);
   console.log(currentUser)
 };
 
@@ -109,8 +137,8 @@ function loadCurrentDate(currentUser) {
   let myCurrentDate = new Date()
   let dateDayJs = dayjs(myCurrentDate).format('dddd : MMM / DD / YYYY');
   // console.log("dateDayJs", dateDayJs);
-  domUpdates.displayHotelLogo();
-  domUpdates.displayCurrentDate(dateDayJs);
+  domUpdates.displayHotelLogo(dateDayJs);
+  // domUpdates.displayCurrentDate(dateDayJs);
 };
 
 function loadUserInfo(currentUser) {
@@ -122,7 +150,7 @@ function loadUserBookings() {
   domUpdates.displayPastBookings(currentUser, pastBookingsView);
   domUpdates.displayPresentBookings(currentUser, presentBookingsView);
   domUpdates.displayFutureBookings(currentUser, futureBookingsView);
-  domUpdates.displayTotalSpent(currentUser);
+  // domUpdates.displayTotalSpent(currentUser);
 };
 
 function showBookingsByDate() {
@@ -156,7 +184,7 @@ function addBooking() {
   const test1 = event.target.querySelector('.room-num');
   const test2 = test1.innerHTML.split(' ')[2]
   const test3 = parseInt(test2);
-  console.log(test3);
+  // console.log(test3);
 
   let addBooking = {
      userID: currentUser.id,
