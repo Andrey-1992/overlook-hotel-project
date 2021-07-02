@@ -1,5 +1,6 @@
 export const fetchCalls = {
 
+
   callCustomersData() {
     return fetch('http://localhost:3001/api/v1/customers')
       .then(response => response.json())
@@ -16,6 +17,13 @@ export const fetchCalls = {
 
   callRoomsData() {
     return fetch('http://localhost:3001/api/v1/rooms')
+      .then(response => response.json())
+      // .then(data => data)
+      .catch(err => console.error(err))
+  },
+
+  callCustomersIdData(userIdNum) {
+    return fetch(`http://localhost:3001/api/v1/customers/${userIdNum}`)
       .then(response => response.json())
       // .then(data => data)
       .catch(err => console.error(err))

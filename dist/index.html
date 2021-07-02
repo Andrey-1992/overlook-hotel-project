@@ -8,52 +8,59 @@
 </head>
 <body>
   <!-- <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px"> -->
-  <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
-
-  <form action="" class="login-form" id="loginForm">
-    <h1 class="login-header">Login</h1>
-    <section class="group">
-      <input type="text" class="login-input" id="userInput" required><span class="bar"></span>
-      <label for="" class="login-label"><i class="far fa-user"></i> Account</label>
-    </section>
-    <section class="group">
-      <input type="password" class="login-input" id="passwordInput" required><span class="bar"></span>
-      <label for="" class="login-label"><i class="fas fa-key"></i> Password</label>
-    </section>
-    <button type="submit" class="login-button">Login</button>
-  </form>
-
-  <main hidden>
+  <main id="userView">
+    <!-- <article id="userView" hidden> -->
     <header>
       <section class="hotel-info" id="hotelInfo">
       </section>
       <section class="user-info" id="userInfo">
       </section>
-     <button class="home-view-btn" id="homeViewBtn">Home</button>
+      <!-- <button class="home-view-btn" id="homeViewBtn">Home</button> -->
     </header>
+    <nav class="nav-btns" id="navBtns">
+      <button class="past-bookings-btn" id="pastBookingsBtn">Past Bookings</button>
+      <button class="home-view-btn" id="homeViewBtn">Home</button>
+      <button class="upcoming-bookings-btn" id="futureBookingsBtn">Upcoming Bookings</button>
+    </nav>
     <section class="room-search" id="roomSearch">
-      <form method="get">
+      <form method="get" class="searchDateForm" >
         <label class="search-date" for="searchDate">Book a room</label>
         <input type="date" id="searchDate"/>
         <input type="submit" value="search" id="submitSearchBtn"/>
       </form>
-      <button class="home-view-btn" id="homeViewBtn">Home</button>
     </section>
-    <section class="bookings-view" id="bookingsView">
-      <section class="past-bookings-view" id="pastBookingsView">
+    <article class="bookings-view" id="bookingsView">
+      <!-- <section class="past-bookings-view" id="pastBookingsView">
       </section>
       <section class="present-bookings-view" id="presentBookingsView">
       </section>
       <section class="future-bookings-view" id="futureBookingsView">
-      </section>
-    </section>
-    <section class="search-view" id="searchView">
+      </section> -->
+    </article>
+    <article class="search-view" id="searchView">
       <section class="show-rooms" id="showRoomsByDate">
       </section>
       <section class="filter-by-room-type" id="filterByRoomType">
       </section>
-    </section>
+    </article>
+  <!-- </article> -->
   </main>
+
+  <article class="login-form-container" id="loginFormContainer">
+    <form method="get" action="" class="login-form" id="loginForm">
+      <h1 class="login-header">Login</h1>
+      <section class="group">
+        <input type="text" class="login-input" id="userInput"><span class="bar"></span>
+        <label for="" class="login-label"><i class="far fa-user"></i> Account</label>
+      </section>
+      <section class="group">
+        <input type="password" class="login-input" id="passwordInput"><span class="bar"></span>
+        <label for="" class="login-label"><i class="fas fa-key"></i> Password</label>
+      </section>
+      <button type="submit" class="login-button" id="loginButton">Login</button>
+      <p class="warnings" id="warnings"></p>
+    </form>
+  </article>
   <script src="bundle.js"></script>
   <script src="https://kit.fontawesome.com/af04af5187.js" crossorigin="anonymous"></script>
 </body>

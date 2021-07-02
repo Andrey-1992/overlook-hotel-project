@@ -15,16 +15,19 @@ import domUpdates from './domUpdates';
 // Dom selection
 
 //Login view section
-let loginView = document.getElementById('loginView');
+let loginFormContainer = document.getElementById('loginFormContainer');
 let loginForm = document.getElementById('loginForm');
-let loginUsername = document.getElementById('loginUsername');
-let loginPassword = document.getElementById('loginPassword');
-let loginBtn = document.getElementById('loginBtn');
+let userInput = document.getElementById('userInput');
+let passwordInput = document.getElementById('passwordInput');
+let usernameLabel = document.getElementById('usernameLabel');
+let passwordLabel = document.getElementById('passwordLabel');
+let warnings = document.getElementById('warnings');
 // Booking view section
 let bookingForm = document.getElementById('bookingForm');
 let makeBookingBtn = document.getElementById('makeBookingBtn');
 let submit = document.getElementById('submit');
 // Main view section
+let userView = document.getElementById('userView')
 let userInfo = document.getElementById('userInfo');
 let hotelInfo = document.getElementById('hotelInfo');
 let bookingsView = document.getElementById('bookingsView');
@@ -38,8 +41,10 @@ let searchDate = document.getElementById('searchDate');
 let showRoomsByDate = document.getElementById('showRoomsByDate');
 let filterByRoomType = document.getElementById('filterByRoomType');
 // Buttons sections
-let submitSearchBtn = document.getElementById('submitSearchBtn');
+// let submitSearchBtn = document.getElementById('submitSearchBtn');
 let homeViewBtn = document.getElementById('homeViewBtn');
+let pastBookingsBtn = document.getElementById('pastBookingsBtn');
+let futureBookingsBtn = document.getElementById('futureBookingsBtn');
 
 
 
@@ -49,9 +54,12 @@ let customersData, bookingsData, roomsData, hotel, currentUser, dateJs;
 
 
 // Event listeners
-window.addEventListener('load', promiseFetchData);
+// window.addEventListener('load', promiseFetchData);
 submitSearchBtn.addEventListener('click', showBookingsByDate);
+loginForm.addEventListener('submit', loginValidation);
 homeViewBtn.addEventListener('click', returnToHomeView);
+pastBookingsBtn.addEventListener('click', goToPastView);
+futureBookingsBtn.addEventListener('click', goToFutureView);
 
 
 // Functions
@@ -67,10 +75,36 @@ function hide(element) {
   element.classList.add('hidden');
 }
 
+function loginValidation() {
+  preventDefault();
+  // console.log(userInput.value.length);
+  if (!userInput.value.length || !passwordInput.value.length) {
+    warnings.innerText += '';
+    warnings.innerText += "Please fill out fields";
+  } else if (passwordInput.value !== "overlook2021") {
+    warnings.innerText += '';
+    warnings.innerText += "Invalid Password!";
+  } else if (!userInput.value.includes('customer')) {
+    warnings.innerText += '';
+    warnings.innerText += "Invalid Username!";
+  } else {
+    fetchLoginUser(userInput.value);
+  }
+}
+
+function fetchLoginUser(userId) {
+  // console.log(typeof userIdNum);
+  const userIdNum = parseInt(userId.split('r')[1]);
+  const currentUserId = fetchCalls.callCustomersIdData(userIdNum)
+  .then(data => currentUser = new User(data));
+  promiseFetchData();
+}
+
 function promiseFetchData() {
   const customers = fetchCalls.callCustomersData();
   const bookings = fetchCalls.callBookingsData();
   const rooms = fetchCalls.callRoomsData();
+
   Promise.all([customers, bookings, rooms])
   .then(data => {
     initializedData(data[0].customers, data[1].bookings, data[2].rooms);
@@ -86,16 +120,14 @@ function initializedData(customers, bookings, rooms) {
   // console.log('assignDataApi', typeof customersData);
   // console.log('assignDataApi', bookingsData);
   // console.log('assignDataApi', roomsData);
-
   hotel = new Hotel(roomsData, bookingsData, customersData);
-  currentUser = new User(customersData[0]);
-  // console.log(currentUser)
 
   updateUserData(currentUser, bookingsData, roomsData);
   loadUserInfo(currentUser);
   loadCurrentDate();
-  // domUpdates.displayGreetUser(currentUser)
   loadUserBookings();
+  hide(loginForm);
+  show(userView);
   console.log(currentUser)
 };
 
@@ -109,8 +141,8 @@ function loadCurrentDate(currentUser) {
   let myCurrentDate = new Date()
   let dateDayJs = dayjs(myCurrentDate).format('dddd : MMM / DD / YYYY');
   // console.log("dateDayJs", dateDayJs);
-  domUpdates.displayHotelLogo();
-  domUpdates.displayCurrentDate(dateDayJs);
+  domUpdates.displayHotelLogo(dateDayJs);
+  // domUpdates.displayCurrentDate(dateDayJs);
 };
 
 function loadUserInfo(currentUser) {
@@ -119,10 +151,9 @@ function loadUserInfo(currentUser) {
 };
 
 function loadUserBookings() {
-  domUpdates.displayPastBookings(currentUser, pastBookingsView);
-  domUpdates.displayPresentBookings(currentUser, presentBookingsView);
-  domUpdates.displayFutureBookings(currentUser, futureBookingsView);
-  domUpdates.displayTotalSpent(currentUser);
+  domUpdates.displayPresentBookings(currentUser, bookingsView);
+  // domUpdates.displayPastBookings(currentUser, pastBookingsView);
+  // domUpdates.displayFutureBookings(currentUser, futureBookingsView);
 };
 
 function showBookingsByDate() {
@@ -138,14 +169,28 @@ function showBookingsByDate() {
   domUpdates.displayBookingsByDate(hotel, showRoomsByDate, addBooking)
 };
 
+function goToPastView() {
+  preventDefault();
+  hide(showRoomsByDate);
+  show(bookingsView);
+
+  domUpdates.displayPastBookings(currentUser, bookingsView);
+};
+
+function goToFutureView() {
+  preventDefault();
+  hide(showRoomsByDate);
+  show(bookingsView);
+
+  domUpdates.displayFutureBookings(currentUser, bookingsView);
+};
+
 function returnToHomeView() {
   preventDefault();
   hide(showRoomsByDate);
-  hide(homeViewBtn);
   show(bookingsView);
-
   promiseFetchData();
-  console.log('returnHomeUserView', currentUser);
+  // console.log('returnHomeUserView', currentUser);
 };
 
 function addBooking() {
@@ -153,10 +198,12 @@ function addBooking() {
   // console.log(dateJs);
   // console.log(typeof parseInt(event.target.querySelector('.room-num').innerHTML.split(' ')[2]));
   preventDefault();
+  let makeBookingBtn = document.getElementById('makeBookingBtn');
+  makeBookingBtn.innerText = "Successful Book"
   const test1 = event.target.querySelector('.room-num');
   const test2 = test1.innerHTML.split(' ')[2]
   const test3 = parseInt(test2);
-  console.log(test3);
+  // console.log(test3);
 
   let addBooking = {
      userID: currentUser.id,
