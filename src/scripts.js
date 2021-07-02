@@ -41,8 +41,10 @@ let searchDate = document.getElementById('searchDate');
 let showRoomsByDate = document.getElementById('showRoomsByDate');
 let filterByRoomType = document.getElementById('filterByRoomType');
 // Buttons sections
-let submitSearchBtn = document.getElementById('submitSearchBtn');
+// let submitSearchBtn = document.getElementById('submitSearchBtn');
 let homeViewBtn = document.getElementById('homeViewBtn');
+let pastBookingsBtn = document.getElementById('pastBookingsBtn');
+let futureBookingsBtn = document.getElementById('futureBookingsBtn');
 
 
 
@@ -54,8 +56,10 @@ let customersData, bookingsData, roomsData, hotel, currentUser, dateJs;
 // Event listeners
 // window.addEventListener('load', promiseFetchData);
 submitSearchBtn.addEventListener('click', showBookingsByDate);
-homeViewBtn.addEventListener('click', returnToHomeView);
 loginForm.addEventListener('submit', loginValidation);
+homeViewBtn.addEventListener('click', returnToHomeView);
+pastBookingsBtn.addEventListener('click', goToPastView);
+futureBookingsBtn.addEventListener('click', goToFutureView);
 
 
 // Functions
@@ -76,7 +80,7 @@ function loginValidation() {
   // console.log(userInput.value.length);
   if (!userInput.value.length || !passwordInput.value.length) {
     warnings.innerText += '';
-    warnings.innerText += "Please fill out required field";
+    warnings.innerText += "Please fill out fields";
   } else if (passwordInput.value !== "overlook2021") {
     warnings.innerText += '';
     warnings.innerText += "Invalid Password!";
@@ -147,10 +151,9 @@ function loadUserInfo(currentUser) {
 };
 
 function loadUserBookings() {
-  domUpdates.displayPastBookings(currentUser, pastBookingsView);
-  domUpdates.displayPresentBookings(currentUser, presentBookingsView);
-  domUpdates.displayFutureBookings(currentUser, futureBookingsView);
-  // domUpdates.displayTotalSpent(currentUser);
+  domUpdates.displayPresentBookings(currentUser, bookingsView);
+  // domUpdates.displayPastBookings(currentUser, pastBookingsView);
+  // domUpdates.displayFutureBookings(currentUser, futureBookingsView);
 };
 
 function showBookingsByDate() {
@@ -166,14 +169,28 @@ function showBookingsByDate() {
   domUpdates.displayBookingsByDate(hotel, showRoomsByDate, addBooking)
 };
 
+function goToPastView() {
+  preventDefault();
+  hide(showRoomsByDate);
+  show(bookingsView);
+
+  domUpdates.displayPastBookings(currentUser, bookingsView);
+};
+
+function goToFutureView() {
+  preventDefault();
+  hide(showRoomsByDate);
+  show(bookingsView);
+
+  domUpdates.displayFutureBookings(currentUser, bookingsView);
+};
+
 function returnToHomeView() {
   preventDefault();
   hide(showRoomsByDate);
-  hide(homeViewBtn);
   show(bookingsView);
-
   promiseFetchData();
-  console.log('returnHomeUserView', currentUser);
+  // console.log('returnHomeUserView', currentUser);
 };
 
 function addBooking() {
@@ -181,6 +198,8 @@ function addBooking() {
   // console.log(dateJs);
   // console.log(typeof parseInt(event.target.querySelector('.room-num').innerHTML.split(' ')[2]));
   preventDefault();
+  let makeBookingBtn = document.getElementById('makeBookingBtn');
+  makeBookingBtn.innerText = "Successful Book"
   const test1 = event.target.querySelector('.room-num');
   const test2 = test1.innerHTML.split(' ')[2]
   const test3 = parseInt(test2);

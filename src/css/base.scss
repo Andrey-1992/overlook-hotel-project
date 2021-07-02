@@ -168,21 +168,62 @@ header {
   align-items: center;
 }
 
+///// NAV BUTTONS Section
+.nav-btns {
+
+  display: flex;
+}
+
+.home-view-btn, .upcoming-bookings-btn, .past-bookings-btn {
+  font-family: "Roboto";
+  // background: -webkit-linear-gradient(to right, #B06AB3, #4568DC);
+  background: linear-gradient(to left, #B06AB3, #4568DC);
+  border: 1px solid #fff;
+  border-radius: 5%;
+  display: block;
+  width: 20%;
+  margin: 10px auto;
+  color: #fff;
+  height: 40px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.upcoming-bookings-btn:hover {
+  box-shadow: 4px 3px 2px 0px #26222d;
+  opacity: 0.9;
+  transition: 0.2s ease width;
+  width: 22%;
+}
+
+.home-view-btn:hover {
+  box-shadow: 4px 3px 2px 0px #26222d;
+  opacity: 0.9;
+  transition: 0.2s ease width;
+  width: 22%;
+}
+
+.past-bookings-btn:hover {
+  box-shadow: 4px 3px 2px 0px #26222d;
+  opacity: 0.9;
+  transition: 0.2s ease width;
+  width: 22%;
+}
 
 
 // Bookings User Section
-.bookings-view {
-  border: 2px solid blue;
-  display: flex;
-  // flex-direction: column;
-  align-content: space-around;
-  align-items: center;
-}
+// .bookings-view {
+//   border: 2px solid blue;
+//   display: flex;
+//   // flex-direction: column;
+//   align-content: space-around;
+//   align-items: center;
+// }
 
 .past-bookings-view {
-  border: 2px solid black;
-  margin: auto;
-  // display: grid;
+  border: 5px solid black;
+  // margin: auto;
+  display: grid;
   // grid-template-columns: repeat(4, 1fr);
   // grid-template-rows: repeat(2, 1fr);
   // grid-gap: 1.5%;
@@ -198,17 +239,52 @@ header {
   margin: auto;
 }
 
-
-.room-cards {
-  // display: flex;
-  // flex-direction: column;
-  // border: 1px solid blue;
+.bookings-view {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  grid-gap: 1.5%;
-
+  grid-gap: 2%;
+  margin: 3%;
+  // background-image: url('../images/hotel-background.jpg');
+  // background-repeat: no-repeat;
+  // background-size: contain;
+  // background-position: bottom;
 }
+
+.presentBookingInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid rgb(238 238 238 / 80%);
+  color: #fff;
+}
+
+
+
+
+
+//////Rooms Cards
+
+.show-rooms {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 2%;
+  margin: 3%;
+}
+
+.room-cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid rgb(238 238 238 / 80%);
+  color: #fff;
+  background-image: url('../images/hotel-background.jpg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
+}
+// <img src='../images/hotel-background.jpg' alt='room' style='background-size: 20%; background-position: top;'>
 
 .hidden {
   display: none;
